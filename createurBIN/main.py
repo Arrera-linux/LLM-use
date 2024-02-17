@@ -1,7 +1,12 @@
 from tkinter import*
+from tkinter import filedialog
+from tkinter import messagebox
 
 class CABinCreateur :
     def __init__(self):
+        #Var
+        self.__emplacementLLM = str
+        #Fenetre
         self.__screen = Tk()
         self.__screen.title("Createur Binaire")
         self.__screen.maxsize(500,500)
@@ -11,8 +16,8 @@ class CABinCreateur :
         self.__main = Frame(self.__screen,bg="white",width=450,height=450)
         self.__helpFrame = Frame(self.__screen,bg="white",width=450,height=450)
         #Creation de bouton
-        btnSelection = Button(self.__main,text="Selectionner l'emplacement\ndu script de lancement",bg="white")
-        btnCreate = Button(self.__main,text="Cree le fichier",bg="white")
+        btnSelection = Button(self.__main,text="Selectionner l'emplacement\ndu script de lancement",bg="white",command=self.__selectedFile)
+        btnCreate = Button(self.__main,text="Cree le fichier",bg="white",command=lambda : print(self.__emplacementLLM))
         btnHelp = Button(self.__main,text="Aide",bg="white",command=self.__showHelp)
         btnRetourMain = Button(self.__helpFrame,text="Retour a l'acceuil",bg="white",command=self.__showMain)
         #Label
@@ -40,6 +45,15 @@ class CABinCreateur :
 
     def show(self):
         self.__screen.mainloop()
+
+    def __selectedFile(self):
+        file = filedialog.askdirectory()
+        if file :
+            self.__emplacementLLM = file
+            messagebox.showinfo("Emplacement","L'emplacement a bien ete enregistrer")
+        else :
+            messagebox.showerror("Erreur","Aucun repertoire selectionner")
+
 
 
 CABinCreateur().show()
