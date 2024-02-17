@@ -1,6 +1,7 @@
 from tkinter import*
 from tkinter import filedialog
 from tkinter import messagebox
+import os
 
 class CABinCreateur :
     def __init__(self):
@@ -17,7 +18,7 @@ class CABinCreateur :
         self.__helpFrame = Frame(self.__screen,bg="white",width=450,height=450)
         #Creation de bouton
         btnSelection = Button(self.__main,text="Selectionner l'emplacement\ndu script de lancement",bg="white",command=self.__selectedFile)
-        btnCreate = Button(self.__main,text="Cree le fichier",bg="white",command=lambda : print(self.__emplacementLLM))
+        btnCreate = Button(self.__main,text="Cree le fichier",bg="white",command=self.__createFile)
         btnHelp = Button(self.__main,text="Aide",bg="white",command=self.__showHelp)
         btnRetourMain = Button(self.__helpFrame,text="Retour a l'acceuil",bg="white",command=self.__showMain)
         #Label
@@ -53,6 +54,25 @@ class CABinCreateur :
             messagebox.showinfo("Emplacement","L'emplacement a bien ete enregistrer")
         else :
             messagebox.showerror("Erreur","Aucun repertoire selectionner")
+    
+    def __createFile(self):
+        emplacement = filedialog.askdirectory()
+        if emplacement:
+            # Nom du fichier à créer
+            nom_fichier = os.path.join(emplacement, "llm")
+            # Écrire deux lignes dans le fichier
+            contenu = "#!/bin/bash\ncd "+self.__emplacementLLM+"\n./startChatInstaner.sh"
+            # Écrire dans le fichier
+            try:
+                with open(nom_fichier, "w") as fichier:
+                    fichier.write(contenu)
+                    messagebox.showinfo("Reussite","Le fichier a bien ete cree")
+            except Exception as e:
+                messagebox.showerror("Erreur","Le fichier n'a pas ete cree")
+        else:
+            messagebox.showerror("Erreur","Aucun repertoire selectionner")
+
+    
 
 
 
