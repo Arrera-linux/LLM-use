@@ -16,7 +16,7 @@ class CABinCreateur :
         self.__nameFile = str
         self.__bashFile = str
         self.__varChoixFile = StringVar(self.__screen)
-        self.__listChoixfile=["startChatInstaner.sh","startTest.sh"]
+        self.__listChoixfile=["startChatBot.sh","startOneRequette.sh"]
         #Cretion des carder
         self.__main = Frame(self.__screen,bg="white",width=450,height=450)
         self.__helpFrame = Frame(self.__screen,bg="white",width=450,height=450)
